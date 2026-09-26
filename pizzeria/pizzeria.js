@@ -30,6 +30,7 @@ const exists = (url) => loadImg(url).then(() => true, () => false);
 
 /* ------------------------------------------------------------------ vista 3D de pizza fotográfica */
 const views = new Set(); let raf = 0, last = 0, paused = false;
+const LITE = matchMedia('(pointer: coarse)').matches || Math.min(screen.width, screen.height) < 700;      // móvil: menos malla, sin antialias y resolución contenida
 function loop(t) {
   raf = requestAnimationFrame(loop); const dt = Math.min(.05, (t - last) / 1000 || .016); last = t;
   if (paused) return; for (const v of views) if (v.visible) v.frame(dt, t / 1000);
@@ -38,8 +39,8 @@ function loop(t) {
 class PhotoPizza {
   constructor(canvas, assets, o = {}) {
     this.canvas = canvas; this.assets = assets; this.o = { fov: 26, cam: [0, 1.9, 1.35], spin: .16, drag: true, exposure: 1.1, scale: 1, disp: .09, lum: 1, side: 1, ...o };
-    this.r = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
-    this.r.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5)); this.r.toneMapping = THREE.ACESFilmicToneMapping; this.r.toneMappingExposure = this.o.exposure; this.r.outputColorSpace = THREE.SRGBColorSpace;
+    this.r = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !LITE, powerPreference: 'high-performance' });
+    this.r.setPixelRatio(Math.min(devicePixelRatio || 1, LITE ? 1.25 : 1.5)); this.r.toneMapping = THREE.ACESFilmicToneMapping; this.r.toneMappingExposure = this.o.exposure; this.r.outputColorSpace = THREE.SRGBColorSpace;
     this.aniso = this.r.capabilities.getMaxAnisotropy();
     this.scene = new THREE.Scene(); this.cam = new THREE.PerspectiveCamera(this.o.fov, 1, .1, 20);
     const pm = new THREE.PMREMGenerator(this.r); this.scene.environment = pm.fromScene(new RoomEnvironment(), .04).texture; this.scene.environmentIntensity = .55; pm.dispose();
@@ -70,7 +71,7 @@ class PhotoPizza {
     const p = Promise.all([this.texture(u(layer ? '_' + layer : ''), true), this.texture(u('_d'), false), this.texture(u('_n'), false), this.texture(u('_r'), false)]).then(([map, disp, nor, rou]) => {
       const a = map.image.height / map.image.width, g = new THREE.Group();
       const mat = new THREE.MeshStandardMaterial({ map, displacementMap: disp, displacementScale: this.o.disp, displacementBias: -.012, normalMap: nor, normalScale: new THREE.Vector2(1.15, 1.15), roughnessMap: rou, roughness: 1, metalness: 0, emissive: 0xffffff, emissiveMap: map, emissiveIntensity: .3 * this.o.lum, alphaTest: .5, transparent: true, side: THREE.DoubleSide });
-      const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, a, 256, Math.round(256 * a)), mat); plane.rotation.x = -Math.PI / 2; g.add(plane);
+      const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, a, LITE ? 128 : 256, Math.round((LITE ? 128 : 256) * a)), mat); plane.rotation.x = -Math.PI / 2; g.add(plane);
       const body = new THREE.Mesh(new THREE.CylinderGeometry(.43, .455, .07, 72), new THREE.MeshStandardMaterial({ color: 0xd49a52, roughness: .88, map })); body.position.y = -.026; g.add(body);
       g.userData = { mat, plane, body }; return g;
     });
@@ -250,6 +251,10 @@ export function initPizzeria({ root, assets = './' }) {
     hornoStep = idx; steps.forEach((s, i) => s.classList.toggle('is-on', i === idx)); const [bg, fg, wd] = PALETTE[idx]; pin.style.setProperty('--bg', bg); pin.style.setProperty('--fg', fg); pin.style.setProperty('--word', wd);
     word.textContent = WORDS[idx]; if (!reduced) word.animate([{ clipPath: 'inset(100% 0 0 0)', transform: 'translateY(-46%)' }, { clipPath: 'inset(0 0 0 0)', transform: 'translateY(-58%)' }], { duration: 800, easing: 'cubic-bezier(.16,1,.3,1)' });
   }
+  /* posiciones de las secciones en caché (offsetTop, sin forzar layout): antes había 5 getBoundingClientRect por fotograma, que en móvil frenaban el scroll */
+  const lay = {}; const posIn = (el) => { let y = 0, n = el; while (n && n !== scroller) { y += n.offsetTop; n = n.offsetParent; } return y; };
+  const relayout = () => { lay.abuela = [posIn(abuela), abuela.offsetHeight]; lay.story = [posIn(storyCard), storyCard.offsetHeight]; lay.horno = [posIn(horno), horno.offsetHeight]; lay.video = [posIn(vbigWrap), vbigWrap.offsetHeight]; };
+  relayout(); addEventListener('resize', relayout); setInterval(relayout, 1000); document.fonts?.ready.then(relayout);
   function tick(now) {
     requestAnimationFrame(tick); const dt = Math.min(.05, (now - (tick.l || now)) / 1000); tick.l = now; tt += dt;
     const top = scroller.scrollTop; vScroll = lerp(vScroll, top - lastTop, 1 - Math.exp(-dt * 10)); lastTop = top;
@@ -261,12 +266,12 @@ export function initPizzeria({ root, assets = './' }) {
       heroView3D.style.setProperty('--my', (-hp * 90 + mouse.y * -14).toFixed(1) + 'px'); heroView3D.style.setProperty('--mx', (mouse.x * 18).toFixed(1) + 'px');
       fat.style.translate = `${(mouse.x * -22).toFixed(1)}px ${(-hp * 160).toFixed(1)}px`;
     }
-    if (waveVisible) { const w = grid.scrollWidth / 2 || 1; waveRows.forEach((r) => { r.x += r.dir * (r.sp + Math.abs(vScroll) * 14) * dt; if (r.x > 0) r.x -= w * .5; if (r.x < -w * .5) r.x += w * .5; r.el.style.transform = `translate3d(${r.x}px,0,0)`; }); if (!reduced && ((tt * 20) | 0) !== tick.n) { tick.n = (tt * 20) | 0; noise.setAttribute('baseFrequency', `${(.006 + Math.sin(tt * .35) * .0016).toFixed(5)} ${(.014 + Math.sin(tt * .5 + 1) * .004).toFixed(5)}`); } }
-    const ar = abuela.getBoundingClientRect(); if (ar.bottom > 0 && ar.top < H) { const p = (H - ar.top) / (H + ar.height); abuelaBig.style.transform = `translate3d(${((p - .5) * -7).toFixed(2)}vw,0,0)`; }
-    const sr = storyCard.getBoundingClientRect(); if (sr.bottom > 0 && sr.top < H) storyCard.style.translate = `0 ${(((sr.top + sr.height / 2) / H - .5) * -50).toFixed(1)}px`;
-    const hr = horno.getBoundingClientRect(), scr = scroller.getBoundingClientRect(), p = clamp((scr.top - hr.top) / Math.max(1, hr.height - scr.height)); hornoP = lerp(hornoP, p, 1 - Math.exp(-dt * 9));
+    if (waveVisible) { const w = grid.scrollWidth / 2 || 1; waveRows.forEach((r) => { r.x += r.dir * (r.sp + Math.abs(vScroll) * 14) * dt; if (r.x > 0) r.x -= w * .5; if (r.x < -w * .5) r.x += w * .5; r.el.style.transform = `translate3d(${r.x}px,0,0)`; }); if (!reduced && ((tt * 20) | 0) !== tick.n) { tick.n = (tt * 20) | 0; if (!LITE) noise.setAttribute('baseFrequency', `${(.006 + Math.sin(tt * .35) * .0016).toFixed(5)} ${(.014 + Math.sin(tt * .5 + 1) * .004).toFixed(5)}`); } }
+    const aTop = lay.abuela[0] - top, aH = lay.abuela[1]; if (aTop + aH > 0 && aTop < H) { const p = (H - aTop) / (H + aH); abuelaBig.style.transform = `translate3d(${((p - .5) * -7).toFixed(2)}vw,0,0)`; }
+    const sTop = lay.story[0] - top, sH = lay.story[1]; if (sTop + sH > 0 && sTop < H) storyCard.style.translate = `0 ${(((sTop + sH / 2) / H - .5) * -50).toFixed(1)}px`;
+    const p = clamp((top - lay.horno[0]) / Math.max(1, lay.horno[1] - H)); hornoP = lerp(hornoP, p, 1 - Math.exp(-dt * 9));
     const idx = clamp(Math.floor(p * 5), 0, 4); if (idx !== hornoStep) setStep(idx); bar.style.width = (p * 100).toFixed(1) + '%';
-    const vr = vbigWrap.getBoundingClientRect(); if (embVisible) embers(dt); if (vr.bottom > 0 && vr.top < H) vbig.style.transform = `translate3d(${((vr.top / H) * -6).toFixed(2)}vw, ${(vr.top * -.12).toFixed(1)}px, 0)`;
+    const vTop = lay.video[0] - top, vH = lay.video[1]; if (embVisible) embers(dt); if (vTop + vH > 0 && vTop < H) vbig.style.transform = `translate3d(${((vTop / H) * -6).toFixed(2)}vw, ${(vTop * -.12).toFixed(1)}px, 0)`;
   }
   requestAnimationFrame(tick); setStep(0);
 

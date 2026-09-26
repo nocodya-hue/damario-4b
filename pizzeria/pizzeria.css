@@ -268,3 +268,77 @@ body.pz-standalone { margin: 0; background: #F2E6CD; }
 }
 
 .pz-snap--f { --r: -1.8deg; } .pz-snap--f > img { object-position: 50% 30%; }   /* foto del pizzaiolo: encuadre en las caras */
+
+/* =========================================================
+   AIRE (26-sep-2026) — más espacio entre imágenes, textos y secciones: orden y respiración antes que información apretada.
+   Va al final para ganar a las reglas anteriores sin tocarlas.
+   ========================================================= */
+#pizzeria { --gut: clamp(24px, 5vw, 72px); }
+.pz-story { gap: clamp(56px, 7vw, 120px); padding-block: clamp(120px, 17vw, 280px); }
+.pz-body { margin-top: clamp(30px, 3vw, 46px); line-height: 1.55; }
+.pz-micro--ink { margin-top: clamp(30px, 3vw, 44px); }
+.pz-abuela__fig { margin-bottom: clamp(70px, 9vw, 130px); }
+.pz-menu { padding-bottom: clamp(90px, 11vw, 170px); }
+.pz-menu__title { margin-bottom: clamp(44px, 6vw, 90px); }
+.pz-menu__grid { gap: clamp(44px, 6vw, 100px); }
+.pz-row { padding: 24px 0 22px; }
+.pz-list li.is-on .pz-row { padding-bottom: 28px; }
+.pz-extras { margin-top: clamp(80px, 10vw, 140px); gap: clamp(48px, 6vw, 100px); }
+.pz-extras h3 { margin-bottom: 22px; }
+.pz-extras li { padding: 14px 0; }
+.pz-fotos { padding-top: clamp(110px, 13vw, 200px); padding-bottom: clamp(90px, 10vw, 160px); }
+.pz-fotos__title { margin-bottom: clamp(46px, 6vw, 90px); }
+.pz-fotos__track { gap: clamp(26px, 3.2vw, 52px); padding: 46px var(--gut) 76px; }
+.pz-llevar { padding-bottom: clamp(100px, 12vw, 190px); }
+.pz-llevar__title { margin-bottom: clamp(24px, 3vw, 48px); }
+.pz-llevar__copy { margin-top: clamp(56px, 7vw, 110px); }
+.pz-llevar__copy .pz-h2 { margin-bottom: 4px; }
+.pz-llevar__copy .pz-body { margin-bottom: 36px; }
+.pz-visit { gap: clamp(56px, 7vw, 110px); padding-block: clamp(96px, 12vw, 180px); }
+.pz-h2--fat { margin-top: clamp(22px, 2.4vw, 34px); }
+.pz-addr { margin-top: clamp(38px, 4vw, 56px); gap: 30px; line-height: 1.55; }
+.pz-hours { margin-top: 10px; } .pz-hours div { padding: 15px 0; }
+.pz-map { margin-top: clamp(44px, 5vw, 64px); }
+.pz-form { gap: 20px; padding: clamp(26px, 3vw, 46px); }
+.pz-foot__ticker { margin-top: clamp(20px, 3vw, 40px); }
+.pz-foot__big { margin: clamp(30px, 5vw, 70px) 0 clamp(24px, 3.4vw, 48px); }
+
+@media (max-width: 860px) {
+  #pizzeria { --gut: 26px; }
+  /* portada: la palabra, la pizza y los botones ya no se pisan */
+  .pz-poster__row { font-size: min(38vw, 20svh); }
+  .pz-hero__fat { top: 46.5%; font-size: clamp(2.6rem, 15vw, 5rem); }
+  .pz-hero__view { width: min(70vw, 38svh); bottom: 12svh; }
+  .pz-hero__copy { bottom: 30px; }
+  .pz-sticker { top: 27%; }
+  /* mesa 7: el pie de foto sube para no chocar con «Su mesa. Siempre.» */
+  .pz-abuela__fig figcaption { top: 16px; bottom: auto; }
+  .pz-abuela__fig { margin-bottom: 96px; }
+  .pz-abuela__fat { bottom: calc(var(--strip) + 6vw); }
+  /* historia */
+  .pz-story { gap: 64px; padding-block: 110px; }
+  .pz-story__card { margin-top: 12px; }
+  /* carta */
+  .pz-menu__title { margin-bottom: 44px; }
+  .pz-viewer { margin: 44px auto 56px; }
+  .pz-extras { gap: 56px; margin-top: 80px; }
+  /* fotos */
+  .pz-fotos__title { margin-bottom: 40px; }
+  /* para llevar: título entero y piezas separadas */
+  .pz-llevar__title { font-size: 15vw; margin-bottom: 34px; }
+  .pz-llevar__stage { gap: 52px; }
+  .pz-mk--boxes { width: 90%; } .pz-mk--flat { width: 92%; } .pz-mk--bag { width: 66%; margin-top: 4px; }
+  .pz-llevar__copy { margin-top: 30px; }
+  /* visítanos: horarios en dos líneas legibles */
+  .pz-visit__big { margin-bottom: 8px; }
+  .pz-hours div { flex-direction: column; gap: 4px; padding: 14px 0; } .pz-hours dd { text-align: left; }
+  .pz-form { margin-top: 8px; }
+}
+
+/* móvil / táctil: las capas de papel y grano a pantalla completa con mix-blend-mode y el filtro SVG animado de la onda se repintan en CADA fotograma del scroll
+   (y el filtro SVG se rasteriza en CPU): en el teléfono frenaban el scroll. Se quitan; la marquesina queda plana. */
+@media (pointer: coarse), (max-width: 860px) {
+  .pz-paper, .pz-grain { display: none; }
+  .pz-wave__grid { filter: none !important; }
+  .pz-abuela__fig, .pz-story__card, .pz-snap, .pz-mk { box-shadow: 0 18px 30px -18px rgba(27, 18, 16, .55); }
+}
