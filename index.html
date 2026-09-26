@@ -9,84 +9,13 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23120b0a'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23ff4a2b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap"></noscript>
+<link rel="modulepreload" href="dist/main.js">
+<link rel="modulepreload" href="dist/c-2HL5BR7W.js">
+<link rel="preload" as="fetch" crossorigin fetchpriority="low" href="vendor/three/addons/libs/draco/gltf/draco_wasm_wrapper.js">
+<link rel="preload" as="fetch" crossorigin fetchpriority="low" href="vendor/three/addons/libs/draco/gltf/draco_decoder.wasm">
+<script>(function(){try{var low=matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<700,T='assets/tex/'+(low?'s/':''),H='assets/humans/'+(low?'s/':''),h=document.head;function L(u,as,p){var l=document.createElement('link');l.rel='preload';l.as=as;l.href=u;if(as==='fetch')l.crossOrigin='anonymous';if(p)l.fetchPriority=p;h.appendChild(l);}["red_brick_Diffuse", "red_brick_Rough", "red_brick_nor_gl", "brick_white_Diffuse", "concrete_layers_Diffuse", "concrete_layers_Rough", "concrete_layers_nor_gl", "concrete_wall_008_Diffuse", "concrete_wall_008_Rough", "concrete_wall_008_nor_gl", "rectangular_parquet_Diffuse", "rectangular_parquet_Rough", "rectangular_parquet_nor_gl", "corrugated_iron_Diffuse", "corrugated_iron_Rough", "corrugated_iron_nor_gl", "black_walnut_veneer_02_Diffuse", "black_walnut_veneer_02_Rough", "black_walnut_veneer_02_nor_gl", "wooden_planks_Diffuse", "wooden_planks_Rough", "wooden_planks_nor_gl", "brown_planks_09_Diffuse", "brown_planks_09_Rough", "brown_planks_09_nor_gl", "poly_wool_herringbone_Diffuse", "poly_wool_herringbone_Rough", "poly_wool_herringbone_nor_gl", "velvet_gray_Diffuse", "velour_velvet_Rough", "velour_velvet_nor_gl"].forEach(function(n){L(T+n+'.webp','image')});['yeray','noa','malik','zuri'].forEach(function(n){L(H+n+'.glb','fetch','low');L('assets/humans/'+n+'.json','fetch','low')});L('assets/props/shoe.glb','fetch','low')}catch(e){}})()</script>
 <link rel="stylesheet" href="css/style.css?v=1">
-<script type="importmap">
-{ "imports": {
-  "three": "./vendor/three/build/three.module.js",
-  "three/addons/": "./vendor/three/addons/"
-} }
-</script>
-<link rel="modulepreload" href="js/characters/actor.js">
-<link rel="modulepreload" href="js/characters/anatomy.js">
-<link rel="modulepreload" href="js/characters/behaviors.js">
-<link rel="modulepreload" href="js/characters/cast.js">
-<link rel="modulepreload" href="js/characters/fabrics.js">
-<link rel="modulepreload" href="js/characters/garments.js">
-<link rel="modulepreload" href="js/characters/headwear.js">
-<link rel="modulepreload" href="js/characters/human.js">
-<link rel="modulepreload" href="js/characters/index.js">
-<link rel="modulepreload" href="js/characters/outfits.js">
-<link rel="modulepreload" href="js/characters/shoes.js">
-<link rel="modulepreload" href="js/characters/skin.js">
-<link rel="modulepreload" href="js/core/assetSlots.js">
-<link rel="modulepreload" href="js/core/audio.js">
-<link rel="modulepreload" href="js/core/cameraRig.js">
-<link rel="modulepreload" href="js/core/post.js">
-<link rel="modulepreload" href="js/core/quality.js">
-<link rel="modulepreload" href="js/core/scroll.js">
-<link rel="modulepreload" href="js/fx/bubbles.js">
-<link rel="modulepreload" href="js/fx/dust.js">
-<link rel="modulepreload" href="js/fx/graffiti.js">
-<link rel="modulepreload" href="js/fx/smoke.js">
-<link rel="modulepreload" href="js/main.js">
-<link rel="modulepreload" href="js/story/director.js">
-<link rel="modulepreload" href="js/story/elevatorScene.js">
-<link rel="modulepreload" href="js/story/script.js">
-<link rel="modulepreload" href="js/story/shots.js">
-<link rel="modulepreload" href="js/ui/brandnav.js">
-<link rel="modulepreload" href="js/ui/carta.js">
-<link rel="modulepreload" href="js/ui/hud.js">
-<link rel="modulepreload" href="js/world/bake.js">
-<link rel="modulepreload" href="js/world/brand.js">
-<link rel="modulepreload" href="js/world/city.js">
-<link rel="modulepreload" href="js/world/colliders.js">
-<link rel="modulepreload" href="js/world/cushion.js">
-<link rel="modulepreload" href="js/world/decor.js">
-<link rel="modulepreload" href="js/world/elevator.js">
-<link rel="modulepreload" href="js/world/extras.js">
-<link rel="modulepreload" href="js/world/facade.js">
-<link rel="modulepreload" href="js/world/furniture.js">
-<link rel="modulepreload" href="js/world/geo.js">
-<link rel="modulepreload" href="js/world/index.js">
-<link rel="modulepreload" href="js/world/lamps.js">
-<link rel="modulepreload" href="js/world/layout.js">
-<link rel="modulepreload" href="js/world/lighting.js">
-<link rel="modulepreload" href="js/world/materials.js">
-<link rel="modulepreload" href="js/world/mats.js">
-<link rel="modulepreload" href="js/world/props.js">
-<link rel="modulepreload" href="js/world/room.js">
-<link rel="modulepreload" href="js/world/tv.js">
-<link rel="modulepreload" href="vendor/three/build/three.module.js">
-<link rel="modulepreload" href="vendor/three/addons/environments/RoomEnvironment.js">
-<link rel="modulepreload" href="vendor/three/addons/loaders/KTX2Loader.js">
-<link rel="modulepreload" href="vendor/three/addons/libs/zstddec.module.js">
-<link rel="modulepreload" href="vendor/three/addons/libs/ktx-parse.module.js">
-<link rel="modulepreload" href="vendor/three/addons/utils/WorkerPool.js">
-<link rel="modulepreload" href="vendor/three/addons/loaders/DRACOLoader.js">
-<link rel="modulepreload" href="vendor/three/addons/loaders/GLTFLoader.js">
-<link rel="modulepreload" href="vendor/three/addons/utils/BufferGeometryUtils.js">
-<link rel="modulepreload" href="vendor/three/addons/geometries/RoundedBoxGeometry.js">
-<link rel="modulepreload" href="vendor/three/addons/postprocessing/Pass.js">
-<link rel="modulepreload" href="vendor/three/addons/postprocessing/ShaderPass.js">
-<link rel="modulepreload" href="vendor/three/addons/postprocessing/OutputPass.js">
-<link rel="modulepreload" href="vendor/three/addons/shaders/OutputShader.js">
-<link rel="modulepreload" href="vendor/three/addons/postprocessing/UnrealBloomPass.js">
-<link rel="modulepreload" href="vendor/three/addons/shaders/LuminosityHighPassShader.js">
-<link rel="modulepreload" href="vendor/three/addons/shaders/CopyShader.js">
-<link rel="modulepreload" href="vendor/three/addons/postprocessing/RenderPass.js">
-<link rel="modulepreload" href="vendor/three/addons/postprocessing/EffectComposer.js">
-<link rel="modulepreload" href="vendor/three/addons/postprocessing/MaskPass.js">
 </head>
 <body>
 
@@ -176,6 +105,6 @@
 
 <script src="vendor/gsap/gsap.min.js"></script>
 <script src="vendor/gsap/ScrollTrigger.min.js"></script>
-<script type="module" src="js/main.js?v=1"></script>
+<script type="module" src="dist/main.js"></script>
 </body>
 </html>
