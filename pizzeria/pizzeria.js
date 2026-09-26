@@ -66,7 +66,7 @@ class PhotoPizza {
   }
   async build(kind, layer = '') {                            // plano subdividido + relieve real + cuerpo de masa bajo el borde (layer: capa fotográfica opcional, comparte el relieve)
     const key = kind + layer; if (this.tex.has(key)) return this.tex.get(key);
-    const u = (s) => `${this.assets}assets/img/pizza_${kind}${s}.png`;
+    const u = (s) => `${this.assets}assets/img/pizza_${kind}${s}.webp`;
     const p = Promise.all([this.texture(u(layer ? '_' + layer : ''), true), this.texture(u('_d'), false), this.texture(u('_n'), false), this.texture(u('_r'), false)]).then(([map, disp, nor, rou]) => {
       const a = map.image.height / map.image.width, g = new THREE.Group();
       const mat = new THREE.MeshStandardMaterial({ map, displacementMap: disp, displacementScale: this.o.disp, displacementBias: -.012, normalMap: nor, normalScale: new THREE.Vector2(1.15, 1.15), roughnessMap: rou, roughness: 1, metalness: 0, emissive: 0xffffff, emissiveMap: map, emissiveIntensity: .3 * this.o.lum, alphaTest: .5, transparent: true, side: THREE.DoubleSide });
@@ -113,7 +113,7 @@ export function initPizzeria({ root, assets = './' }) {
   $$('img[data-scene]').forEach(async (img) => {
     const n = img.dataset.scene, url = `${assets}assets/img/${n}.webp`;
     if (await exists(url)) { img.src = url; return; }
-    const holder = img.parentElement; holder.classList.add('is-missing'); const fb = document.createElement('img'); fb.className = 'pz-fallback'; fb.alt = ''; fb.src = `${assets}assets/img/pizza_${FALL[fi++ % FALL.length]}.png`; holder.appendChild(fb);
+    const holder = img.parentElement; holder.classList.add('is-missing'); const fb = document.createElement('img'); fb.className = 'pz-fallback'; fb.alt = ''; fb.src = `${assets}assets/img/pizza_${FALL[fi++ % FALL.length]}.webp`; holder.appendChild(fb);
   });
 
   /* ---------- pizza del hero ---------- */
@@ -162,7 +162,7 @@ export function initPizzeria({ root, assets = './' }) {
     viewerTag.textContent = menu[i].name; viewerPrice.innerHTML = `${menu[i].price.toLocaleString('es-ES', { minimumFractionDigits: 2 })}<small>€</small>`; menuView.setPizza(menu[i].id);
     viewerPrice.animate([{ transform: 'rotate(10deg) scale(.7)' }, { transform: 'rotate(10deg) scale(1)' }], { duration: 520, easing: 'cubic-bezier(.34,1.56,.64,1)' });
   }
-  Promise.all(MENU.map((p) => exists(`${assets}assets/img/pizza_${p.id}.png`))).then((oks) => {
+  Promise.all(MENU.map((p) => exists(`${assets}assets/img/pizza_${p.id}.webp`))).then((oks) => {
     menu = MENU.filter((_, i) => oks[i]);
     menu.forEach((p, i) => {
       const li = document.createElement('li'); li.innerHTML = `<button class="pz-row" type="button" aria-pressed="false"><span class="pz-row__name">${p.name}</span><span class="pz-row__price">${eur(p.price)}</span><span class="pz-row__desc"><span>${p.desc}</span></span></button><button class="pz-btn pz-btn--solid pz-add" type="button" tabindex="-1">Añadir</button>`;
