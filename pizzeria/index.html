@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Da Mario · Masa lenta, noche larga</title>
+<meta name="description" content="Da Mario. Masa lenta, noche larga. Pizza de horno de leña en Ruzafa (València) desde 1987: 72 horas de masa, 90 segundos de fuego.">
+<meta name="theme-color" content="#E2412A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23E2412A'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23F2E6CD'/%3E%3Ccircle cx='13' cy='14' r='2' fill='%23E2412A'/%3E%3Ccircle cx='19' cy='18' r='2' fill='%23E2412A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="pizzeria.css">
+<script type="importmap">
+{ "imports": {
+  "three": "../vendor/three/build/three.module.js",
+  "three/addons/": "../vendor/three/addons/"
+} }
+</script>
+</head>
+<body class="pz-standalone">
+
+<main id="pizzeria" class="pz" aria-label="Da Mario, pizzería">
+<div class="pz-scroller" id="pzScroller">
+
+  <svg class="pz-defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="pzWarp" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence id="pzWarpNoise" type="fractalNoise" baseFrequency="0.006 0.014" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="38" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <!-- ============ NAV ============ -->
+  <header class="pz-nav" id="pzNav">
+    <a class="pz-brand" href="#pzHero" aria-label="Da Mario, inicio"><span>Da</span> Mario</a>
+    <nav class="pz-links" aria-label="Secciones">
+      <a href="#pzHorno">El horno</a><a href="#pzCarta">La carta</a><a href="#pzFotos">Mesa 7</a><a href="#pzVisita">Visítanos</a>
+    </nav>
+    <div class="pz-nav__right">
+      <span class="pz-open" id="pzOpen" role="status"><i></i><b>Abierto</b></span>
+      <button class="pz-cartbtn" id="pzCartBtn" type="button" aria-label="Abrir pedido"><span>Pedido</span><b id="pzCartCount">0</b></button>
+    </div>
+  </header>
+
+  <!-- ============ HERO: cartel ============ -->
+  <section class="pz-hero" id="pzHero">
+    <p class="pz-micro pz-micro--top" aria-hidden="true">Horno de leña · Ruzafa · València</p>
+    <h1 class="pz-poster" aria-label="Masa lenta. Noche larga."><span class="pz-poster__row" aria-hidden="true">MASA</span><span class="pz-poster__row" aria-hidden="true">LENTA</span></h1>
+    <p class="pz-hero__fat" aria-hidden="true">Noche<br>larga.</p>
+    <div class="pz-hero__view" data-cursor="Gira"><canvas id="pzHeroGL" aria-label="Pizza La Mario en 3D. Arrastra para girarla"></canvas></div>
+    <div class="pz-check pz-check--v" aria-hidden="true"></div>
+    <div class="pz-hero__copy"><div class="pz-cta"><a class="pz-btn pz-btn--solid" href="#pzCarta" data-magnet>Ver la carta</a><a class="pz-btn" href="#pzVisita" data-magnet>Reservar</a></div></div>
+  </section>
+
+  <!-- ============ MARQUESINA ONDULADA ============ -->
+  <section class="pz-wave" id="pzWave" aria-hidden="true"><div class="pz-wave__grid" id="pzWaveGrid"></div></section>
+
+  <!-- ============ ABUELA: cartel naranja ============ -->
+  <section class="pz-abuela" id="pzAbuela">
+    <p class="pz-abuela__big" aria-hidden="true">MESA 7</p>
+    <figure class="pz-abuela__fig" data-tilt>
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" class="pz-abuela__img" data-scene="scene_grandma_orange" alt="Una clienta de toda la vida muerde una porción en su mesa de siempre, con fotos antiguas en la pared" loading="lazy" width="1152" height="896">
+      <figcaption class="pz-micro">Doña Pepa · cada sábado desde 1994</figcaption>
+    </figure>
+    <p class="pz-abuela__fat" aria-hidden="true">Su mesa.<br>Siempre.</p>
+    <div class="pz-check pz-check--h" aria-hidden="true"></div>
+  </section>
+
+  <!-- ============ HISTORIA ============ -->
+  <section class="pz-story" id="pzStory">
+    <div class="pz-story__text">
+      <h2 class="pz-h2" data-split>La masa no se apura.</h2>
+      <p class="pz-body">Amasamos de noche. Reposa tres días. El horno arde antes de que llegue nadie.</p>
+      <p class="pz-micro pz-micro--ink">Calle de Cuba 38 · Ruzafa</p>
+    </div>
+    <figure class="pz-story__card">
+      <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" class="pz-story__img" data-scene="scene_hand_burgundy" alt="Una mano sostiene una porción de pizza con el queso estirado" loading="lazy" width="896" height="1152">
+      <p class="pz-story__fat" aria-hidden="true">72<span>h</span></p>
+      <figcaption class="pz-micro">Masa madre de la casa</figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ EL HORNO (cartel cinético) ============ -->
+  <section class="pz-horno" id="pzHorno">
+    <div class="pz-horno__pin" id="pzHornoPin">
+      <p class="pz-horno__word" id="pzWord" aria-hidden="true">MASA</p>
+      <div class="pz-horno__view"><canvas id="pzHornoGL" aria-hidden="true"></canvas></div>
+      <div class="pz-horno__steps" id="pzSteps">
+        <article class="pz-step is-on"><h2>72 horas.</h2><p>Harina, agua, sal. Se estira a mano.</p></article>
+        <article class="pz-step"><h2>Sin cocer.</h2><p>San Marzano aplastado a mano.</p></article>
+        <article class="pz-step"><h2>Del día.</h2><p>Fior di latte cortado a mano. Se deshace en el horno.</p></article>
+        <article class="pz-step"><h2>Lo justo.</h2><p>Pepperoni, aceituna, albahaca. La masa manda.</p></article>
+        <article class="pz-step"><h2>485 °C.</h2><p>90 segundos. Leña de naranjo.</p></article>
+      </div>
+      <div class="pz-horno__bar" aria-hidden="true"><i id="pzHornoBar"></i></div>
+    </div>
+  </section>
+
+  <!-- ============ LA CARTA ============ -->
+  <section class="pz-menu" id="pzCarta">
+    <div class="pz-check pz-check--h pz-check--top" aria-hidden="true"></div>
+    <h2 class="pz-menu__title"><span>La</span> carta</h2>
+    <div class="pz-menu__grid">
+      <ul class="pz-list" id="pzList" aria-label="Pizzas"></ul>
+      <div class="pz-viewer" id="pzViewer" data-cursor="Gira">
+        <canvas id="pzMenuGL" aria-label="Pizza seleccionada en 3D. Arrastra para girarla"></canvas>
+        <div class="pz-viewer__price" id="pzViewerPrice" aria-hidden="true">13,50<small>€</small></div>
+        <div class="pz-viewer__tag" id="pzViewerTag" aria-hidden="true">La Mario</div>
+      </div>
+    </div>
+    <div class="pz-extras">
+      <div><h3>Para empezar</h3><ul>
+        <li><span>Burrata, tomate seco</span><b>9,50</b></li>
+        <li><span>Provola al horno, miel de azahar</span><b>8,00</b></li>
+        <li><span>Suppli de rag&ugrave;, tres</span><b>7,50</b></li></ul></div>
+      <div><h3>Para beber</h3><ul>
+        <li><span>Vermut de la casa</span><b>4,50</b></li>
+        <li><span>Caña o doble</span><b>2,80</b></li>
+        <li><span>Limonada de la abuela de Mario</span><b>3,50</b></li></ul></div>
+    </div>
+  </section>
+
+  <!-- ============ VÍDEO ============ -->
+  <section class="pz-video" id="pzVideo" aria-label="Una pizza en la boca del horno de leña, con las llamas detrás">
+    <img class="pz-video__img" onerror="this.style.display='none'" src="assets/img/scene_fire.webp" alt="Llamas enormes en un horno de leña y una pizza a punto de salir" width="1200" height="1600" loading="lazy">
+    <div class="pz-video__glow" aria-hidden="true"></div>
+    <canvas class="pz-video__embers" id="pzEmbers" aria-hidden="true"></canvas>
+    <div class="pz-video__view" data-cursor="Gira"><canvas id="pzFireGL" aria-label="La Mario girando junto al fuego. Arrastra para girarla"></canvas></div>
+    <div class="pz-video__shade"></div>
+    <p class="pz-video__big" aria-hidden="true"><span>90</span><span>segundos</span></p>
+    <button class="pz-video__btn" id="pzVideoBtn" type="button" aria-pressed="true">Pausa</button>
+  </section>
+
+  <!-- ============ FOTOS (Mesa 7) ============ -->
+  <section class="pz-fotos" id="pzFotos">
+    <h2 class="pz-fotos__title">Sábado<br>noche</h2>
+    <div class="pz-fotos__track" id="pzTrack" tabindex="0" aria-label="Fotos de un sábado por la noche. Desliza para verlas todas">
+      <figure class="pz-snap pz-snap--a"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-scene="scene_slice_cap" alt="Una chica con gorra roja sonríe con una porción en cada mano" loading="lazy"><figcaption>23:14</figcaption></figure>
+      <figure class="pz-snap pz-snap--b"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-scene="scene_flour_hands" alt="Manos cogen porciones de una pizza sobre una mesa azul" loading="lazy"><figcaption>Harina</figcaption></figure>
+      <figure class="pz-snap pz-snap--c"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-scene="scene_check_table" alt="Pizza sobre mantel de cuadros con dos vermuts" loading="lazy"><figcaption>Vermut</figcaption></figure>
+      <figure class="pz-snap pz-snap--d"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-scene="scene_oven" alt="Una pala saca una porción de pizza de pepperoni" loading="lazy"><figcaption>Fuego</figcaption></figure>
+      <figure class="pz-snap pz-snap--e"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-scene="scene_yellow_tray" alt="Una porción de pepperoni en alto con la carta de fondo" loading="lazy"><figcaption>Para llevar</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- ============ PARA LLEVAR (packaging y papelería de la casa) ============ -->
+  <section class="pz-llevar" id="pzLlevar" aria-labelledby="pzLlevarT">
+    <div class="pz-check pz-check--h pz-check--top" aria-hidden="true"></div>
+    <h2 class="pz-llevar__title" id="pzLlevarT"><span>Para</span> llevar.</h2>
+    <div class="pz-llevar__stage">
+      <figure class="pz-mk pz-mk--boxes" data-tilt>
+        <img src="assets/img/mock_boxes.webp" alt="Una caja de pizza de Da Mario abierta con una pizza Mario y una pila de cajas cerradas con el damero rojo y crema" width="2000" height="1500" loading="lazy" decoding="async">
+        <figcaption class="pz-mk__tag">La caja</figcaption>
+      </figure>
+      <figure class="pz-mk pz-mk--flat" data-tilt>
+        <img src="assets/img/mock_flat.webp" alt="Sobre una mesa: la carta, tarjetas de visita, hoja de pegatinas, un ticket, una caja de cerillas y una pizza margherita" width="2200" height="1650" loading="lazy" decoding="async">
+        <figcaption class="pz-mk__tag">La mesa</figcaption>
+      </figure>
+      <figure class="pz-mk pz-mk--bag" data-tilt>
+        <img src="assets/img/mock_bag.webp" alt="Bolsa de papel kraft de Da Mario con el lema «La masa no se apura», un vaso de papel y una servilleta" width="1600" height="2000" loading="lazy" decoding="async">
+        <figcaption class="pz-mk__tag">La bolsa</figcaption>
+      </figure>
+      <div class="pz-llevar__copy">
+        <p class="pz-h2 pz-h2--fat">Sale caliente. Llega lenta.</p>
+        <p class="pz-body">Caja de cartón, masa de 72 horas y un ticket con la mesa siete. Pide desde aquí y recoge en Ruzafa.</p>
+        <a class="pz-btn pz-btn--solid" href="#pzCarta">Elegir pizza</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VISÍTANOS ============ -->
+  <section class="pz-visit" id="pzVisita">
+    <div class="pz-visit__info">
+      <h2 class="pz-visit__big" aria-hidden="true">VEN CON<br>HAMBRE.</h2>
+      <p class="pz-h2 pz-h2--fat">Te guardamos sitio.</p>
+      <address class="pz-addr">
+        <p><b>Calle de Cuba, 38</b><br>46006 València · Ruzafa</p>
+        <p><b>96 374 19 87</b><br>hola@damario.example</p>
+        <dl class="pz-hours">
+          <div><dt>Martes a jueves</dt><dd>13:00–16:00 · 20:00–23:30</dd></div>
+          <div><dt>Viernes y sábado</dt><dd>13:00–16:30 · 20:00–00:30</dd></div>
+          <div><dt>Domingo</dt><dd>13:00–17:00 · 20:00–23:00</dd></div>
+          <div><dt>Lunes</dt><dd>Descansa el horno</dd></div>
+        </dl>
+      </address>
+      <svg class="pz-map" viewBox="0 0 420 260" role="img" aria-label="Plano de Ruzafa con Da Mario en la calle Cuba">
+        <rect width="420" height="260" fill="#E9DBBA"/>
+        <g stroke="#F2E6CD" stroke-width="14" stroke-linecap="round" fill="none"><path d="M-10 70 L430 40"/><path d="M-10 150 L430 130"/><path d="M-10 225 L430 215"/><path d="M70 -10 L95 270"/><path d="M190 -10 L210 270"/><path d="M320 -10 L340 270"/></g>
+        <text x="22" y="132" class="pz-map__st">C/ CUBA</text><text x="224" y="30" class="pz-map__st" transform="rotate(-4 224 30)">C/ SUECA</text>
+        <g class="pz-map__pin" transform="translate(205 140)"><circle r="22" fill="#E2412A" opacity=".2"/><circle r="9" fill="#E2412A"/><circle r="3.5" fill="#F2E6CD"/></g>
+      </svg>
+    </div>
+    <form class="pz-form" id="pzForm" novalidate>
+      <h3 class="pz-form__t">Reserva.</h3>
+      <label>Nombre<input name="nombre" type="text" autocomplete="name" required placeholder="Como sale en el ticket"></label>
+      <div class="pz-form__row">
+        <label>Personas<select name="personas"><option>2</option><option>3</option><option>4</option><option selected>4</option><option>5</option><option>6</option><option>8</option></select></label>
+        <label>Fecha<input name="fecha" type="date" required></label>
+        <label>Hora<select name="hora"><option>13:30</option><option>14:00</option><option>14:30</option><option>20:30</option><option selected>21:00</option><option>21:30</option><option>22:00</option></select></label>
+      </div>
+      <label>Teléfono<input name="tel" type="tel" autocomplete="tel" required placeholder="6xx xx xx xx" inputmode="tel"></label>
+      <p class="pz-form__err" id="pzFormErr" role="alert" hidden></p>
+      <button class="pz-btn pz-btn--solid pz-btn--wide" type="submit" data-magnet>Reservar mesa</button>
+      <p class="pz-form__ok" id="pzFormOk" role="status" hidden></p>
+    </form>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="pz-foot">
+    <div class="pz-check pz-check--h" aria-hidden="true"></div>
+    <div class="pz-foot__ticker" aria-hidden="true"><div class="pz-foot__tick"><span>Masa lenta · Noche larga ·&nbsp;</span><span>Masa lenta · Noche larga ·&nbsp;</span></div></div>
+    <p class="pz-foot__big" aria-hidden="true">DA MARIO</p>
+    <div class="pz-foot__small"><span>&copy; 1987–2026 Pizzería Da Mario, València</span><span>Web inventada para una escena de 4B · datos ficticios</span></div>
+  </footer>
+
+  <!-- ============ PEDIDO ============ -->
+  <aside class="pz-cart" id="pzCart" aria-label="Tu pedido" hidden>
+    <div class="pz-cart__head"><h3>Tu pedido</h3><button type="button" id="pzCartClose" aria-label="Cerrar pedido">Cerrar</button></div>
+    <ul class="pz-cart__list" id="pzCartList"></ul>
+    <p class="pz-cart__empty" id="pzCartEmpty">Todavía no hay pizzas. Elige alguna de la carta.</p>
+    <div class="pz-cart__foot"><span>Total</span><b id="pzCartTotal">0,00 €</b></div>
+    <button class="pz-btn pz-btn--solid pz-btn--wide" id="pzCartGo" type="button">Pedir para llevar</button>
+    <p class="pz-cart__ok" id="pzCartOk" role="status" hidden></p>
+  </aside>
+
+  <div class="pz-cursor" id="pzCursor" aria-hidden="true"><span></span></div>
+  <div class="pz-paper" aria-hidden="true"></div>
+  <div class="pz-grain" aria-hidden="true"></div>
+</div>
+</main>
+
+<script type="module">
+  import { initPizzeria } from './pizzeria.js';
+  initPizzeria({ root: document.getElementById('pizzeria'), assets: './' });
+</script>
+</body>
+</html>
