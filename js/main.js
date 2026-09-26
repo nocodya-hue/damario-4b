@@ -98,7 +98,7 @@ async function boot() {
   setLoad(.9, 'Preparando materiales');
   { const elevG = scene.getObjectByName('elevator'), ev = elevG ? elevG.visible : false; if (elevG) elevG.visible = true;
     const culled = []; scene.traverse((o) => { if ((o.isMesh || o.isPoints || o.isLine) && o.frustumCulled) { o.frustumCulled = false; culled.push(o); } });
-    try { await renderer.compileAsync(scene, camera); } catch (e) { /* sin compileAsync: se compilará al verlo */ }
+    try { await Promise.race([renderer.compileAsync(scene, camera), new Promise((r) => setTimeout(r, 8000))]); } catch (e) { /* sin compileAsync o tardó demasiado: se compilará al verlo */ }      // con tope de 8 s: nunca deja la carga colgada
     try { renderer.shadowMap.needsUpdate = true; renderer.render(scene, camera); } catch (e) { /* ignorar */ }
     culled.forEach((o) => { o.frustumCulled = true; }); if (elevG) elevG.visible = ev; renderer.shadowMap.needsUpdate = true; }
   setLoad(1, 'Listo');

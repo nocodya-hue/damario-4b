@@ -34,7 +34,7 @@ export class AudioEngine {
     const c = this.ctx = new (window.AudioContext || window.webkitAudioContext)();
     this.master = c.createGain(); this.master.gain.value = 0; this.master.connect(c.destination);
     // música de fondo: "Big Poppa" (instrumental), en bucle y a muy poco volumen
-    this.musicVol = .13; this.music = new Audio('assets/audio/musica-fondo.mp3'); this.music.loop = true; this.music.preload = 'auto'; this.music.crossOrigin = 'anonymous';
+    this.musicVol = .13; this.music = new Audio('assets/audio/musica-fondo.mp3'); this.music.loop = true; this.music.preload = 'none'; this.music.crossOrigin = 'anonymous';
     this.musicGain = c.createGain(); this.musicGain.gain.value = 0; c.createMediaElementSource(this.music).connect(this.musicGain).connect(this.master);
     // bus de tráfico: coches y tren de fondo; se apaga y amortigua dentro del salón (ver update)
     this.cityBus = c.createGain(); this.cityBus.gain.value = .8; this.cityLP = c.createBiquadFilter(); this.cityLP.type = 'lowpass'; this.cityLP.frequency.value = 2500; this.cityBus.connect(this.cityLP).connect(this.master);
