@@ -5,6 +5,6 @@ Experiencia web 3D (Three.js, sin build) que empieza en la fachada de un edifici
 - `index.html` — experiencia 3D con scroll como línea de tiempo; barra de Da Mario para saltar directo a la web de la pizzería.
 - `pizzeria/` — la web de Da Mario (también funciona suelta: `pizzeria/index.html`).
 
-Contenido inventado a propósito. Faltan a propósito (por derechos de autor) la música de fondo y las fotos de escena de la sección «Sábado noche»/«Mesa 7»: la web usa imágenes de sustitución.
+Contenido inventado a propósito. Las fotografías y la música incluidas se publican con la autorización de sus propietarios, bajo responsabilidad del autor del proyecto.
 
 Texturas: Poly Haven (CC0). Personajes: MakeHuman/MPFB2 (CC0).

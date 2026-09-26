@@ -266,3 +266,5 @@ body.pz-standalone { margin: 0; background: #F2E6CD; }
     @keyframes pzMkIn { from { translate: 0 70px; opacity: .2; } to { translate: 0 0; opacity: 1; } }
   }
 }
+
+.pz-snap--f { --r: -1.8deg; } .pz-snap--f > img { object-position: 50% 30%; }   /* foto del pizzaiolo: encuadre en las caras */
