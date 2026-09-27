@@ -206,3 +206,8 @@ body.in-pizzeria .scrollspace,body.in-pizzeria .gl,body.in-pizzeria .ui,body.in-
 .title__sub{font-size:clamp(24px,3.2vw,42px);text-shadow:0 3px 24px rgba(0,0,0,.75)}
 .hint{bottom:84px;padding:12px 22px 10px;gap:10px;font:600 13px/1 var(--f-mono);letter-spacing:.32em;color:#fff;background:rgba(14,8,6,.62);border:1px solid rgba(243,228,204,.5);border-radius:26px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);text-shadow:0 1px 8px rgba(0,0,0,.6);z-index:3}
 .hint i{height:30px}
+
+/* subtítulos legibles sobre cualquier fondo (camisetas claras, ventanas): velo suave detrás y sin la tarjeta del capítulo mientras hay diálogo */
+.sub{padding:12px 20px 14px}
+.sub::before{content:'';position:absolute;inset:-14px -46px;z-index:-1;background:radial-gradient(ellipse at 50% 55%,rgba(10,5,4,.7) 0,rgba(10,5,4,.5) 48%,rgba(10,5,4,0) 76%);filter:blur(5px);pointer-events:none}
+#ui:has(#sub.is-on) .card{opacity:0!important;transition-duration:.2s}

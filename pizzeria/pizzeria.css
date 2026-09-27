@@ -306,10 +306,11 @@ body.pz-standalone { margin: 0; background: #F2E6CD; }
 @media (max-width: 860px) {
   #pizzeria { --gut: 26px; }
   /* portada: la palabra, la pizza y los botones ya no se pisan */
-  .pz-poster__row { font-size: min(38vw, 20svh); }
-  .pz-hero__fat { top: 46.5%; font-size: clamp(2.6rem, 15vw, 5rem); }
-  .pz-hero__view { width: min(70vw, 38svh); bottom: 12svh; }
-  .pz-hero__copy { bottom: 30px; }
+  #pizzeria { --prow: min(38vw, 17svh); }      /* alto de cada fila del cartel: manda también la posición de «Noche larga» (en pantallas bajas se pisaban) */
+  .pz-poster__row { font-size: var(--prow); }
+  .pz-hero__fat { top: calc(clamp(118px, 13svh, 150px) + var(--prow) * 1.72 + 14px); font-size: clamp(2.4rem, min(15vw, 10svh), 5rem); }
+  .pz-hero__view { width: min(70vw, 34svh); bottom: 12svh; }
+  .pz-hero__copy { bottom: 26px; }
   .pz-sticker { top: 27%; }
   /* mesa 7: el pie de foto sube para no chocar con «Su mesa. Siempre.» */
   .pz-abuela__fig figcaption { top: 16px; bottom: auto; }
